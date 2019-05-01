@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "dev": "liberaworks-dev"
+  },
+  "targets": {
+    "liberaworks-dev": {
+      "hosting": {
+        "liberaworks-dev-pwatest": [
+          "liberaworks-dev-pwatest"
+        ]
+      }
+    }
+  }
+}
