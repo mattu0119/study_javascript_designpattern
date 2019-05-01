@@ -34,5 +34,27 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script>
+      // Notification.requestPermission(function(result) {
+      //   if (result === 'denied') {
+      //
+      //     alert('リクエスト結果：通知許可されませんでした');
+      //
+      //   } else if (result === 'default') {
+      //
+      //     alert('リクエスト結果：通知可能か不明です');
+      //
+      //   } else if (result === 'granted') {
+      //
+      //     alert('リクエスト結果：通知許可されました！！');
+      //     var n = new Notification("Hello World");
+      //   }
+      // })
+
+      Notification.requestPermission(function(status) {
+        console.log("通知の許可:", status);//コンソールに許可されたかどうかを表示
+      });
+
+    </script>
   </body>
 </html>
