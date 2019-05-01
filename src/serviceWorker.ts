@@ -59,26 +59,6 @@ export function register(config?: Config) {
         registerValidSW(swUrl, config);
       }
     });
-
-    window.addEventListener("push", function(event: any) {
-      console.log("Push Notification Recieved", event);
-      if (Notification.permission == "granted") {
-        event.waitUntil(
-            event.registration
-                .showNotification("受信しました", {
-                  body: "お知らせです。",
-                  // icon: "iconV2.png"
-                })
-                .then(
-                    function(showEvent: any) {},
-                    function(error: any) {
-                      console.log(error);
-                    }
-                )
-        );
-      }
-    });
-
   }
 }
 
