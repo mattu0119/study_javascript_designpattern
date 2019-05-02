@@ -580,7 +580,7 @@ module.exports = function(webpackEnv) {
             // public/ and not a SPA route
             new RegExp('/[^/]+\\.[^/]+$'),
           ],
-          importScripts: 'SW_push.js',
+          importScripts: ['SW_push.js', 'firebase-messaging-sw.js'],
         }),
       // TypeScript type checking
       useTypeScript &&
