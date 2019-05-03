@@ -4,10 +4,29 @@ import './App.css';
 
 import firebase from 'firebase/app';
 import "firebase/messaging";
+import "firebase/database";
 
 const App: React.FC = () => {
 
   const messaging = firebase.messaging();
+
+  // Handle incoming messages. Called when:
+  // - a message is received while the app has focus
+  // - the user clicks on an app notification created by a service worker
+  //   `messaging.setBackgroundMessageHandler` handler.
+  messaging.onMessage(function(payload) {
+    console.log('Message received. ', payload);
+    const notificationTitle = `focus:${payload.notification.title}`;
+    const notificationOptions = {
+      body: payload.notification.body,
+      // icon: '/firebase-logo.png'
+    };
+
+    return new Notification(
+        notificationTitle,
+        notificationOptions);
+
+  });
 
   const requestPermission = () => {
     //プッシュ通知の許可をする処理
@@ -28,9 +47,10 @@ const App: React.FC = () => {
   };
 
   const viewToken = () => {
-    messaging.getToken().then(function(currentToken) {
+    messaging.getToken().then(function(currentToken: any) {
       if (currentToken) {
         console.log('トークンにゃ : '+ currentToken);//フキダシにトークンを表示。functionはmain.jsに定義。
+        saveToken(currentToken);
       } else {
         // Show permission request.
         console.log('No Instance ID token available. Request permission to generate one.');
@@ -38,10 +58,17 @@ const App: React.FC = () => {
         // updateUIForPushPermissionRequired();
         // setTokenSentToServer(false);
       }
-    }).catch(function(err) {
+    }).catch(function(err: any) {
       console.log('An error occurred while retrieving token. ', err);
       // showToken('Error retrieving Instance ID token. ', err);
       // setTokenSentToServer(false);
+    });
+  };
+
+  const saveToken = (token: any): void =>{
+    firebase.database().ref(`tokens/pwatest`).set({
+      username: "testuser",
+      token: token,
     });
   };
 

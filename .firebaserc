@@ -1,6 +1,7 @@
 {
   "projects": {
-    "dev": "liberaworks-dev"
+    "frontend": "liberaworks-dev",
+    "backend": "pwatest-a18c7"
   },
   "targets": {
     "liberaworks-dev": {
