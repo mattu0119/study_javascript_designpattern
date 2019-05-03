@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "frontend": "liberaworks-dev",
+    "backend": "pwatest-a18c7"
+  },
+  "targets": {
+    "liberaworks-dev": {
+      "hosting": {
+        "liberaworks-dev-pwatest": [
+          "liberaworks-dev-pwatest"
+        ]
+      }
+    }
+  }
+}

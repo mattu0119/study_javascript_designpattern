@@ -2,7 +2,76 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import firebase from 'firebase/app';
+import "firebase/messaging";
+import "firebase/database";
+
 const App: React.FC = () => {
+
+  const messaging = firebase.messaging();
+
+  // Handle incoming messages. Called when:
+  // - a message is received while the app has focus
+  // - the user clicks on an app notification created by a service worker
+  //   `messaging.setBackgroundMessageHandler` handler.
+  messaging.onMessage(function(payload) {
+    console.log('Message received. ', payload);
+    const notificationTitle = `focus:${payload.notification.title}`;
+    const notificationOptions = {
+      body: payload.notification.body,
+      // icon: '/firebase-logo.png'
+    };
+
+    return new Notification(
+        notificationTitle,
+        notificationOptions);
+
+  });
+
+  const requestPermission = () => {
+    //プッシュ通知の許可をする処理
+    console.log('Requesting permission...');
+    // [START request_permission]
+    messaging.requestPermission().then(function() {
+      console.log('Notification permission granted.');
+      // TODO(developer): Retrieve an Instance ID token for use with FCM.
+      // [START_EXCLUDE]
+      // In many cases once an app has been granted notification permission, it
+      // should update its UI reflecting this.
+      viewToken();
+      // [END_EXCLUDE]
+    }).catch(function(err) {
+      console.log('Unable to get permission to notify.', err);
+    });
+    // [END request_permission]
+  };
+
+  const viewToken = () => {
+    messaging.getToken().then(function(currentToken: any) {
+      if (currentToken) {
+        console.log('トークンにゃ : '+ currentToken);//フキダシにトークンを表示。functionはmain.jsに定義。
+        saveToken(currentToken);
+      } else {
+        // Show permission request.
+        console.log('No Instance ID token available. Request permission to generate one.');
+        // Show permission UI.
+        // updateUIForPushPermissionRequired();
+        // setTokenSentToServer(false);
+      }
+    }).catch(function(err: any) {
+      console.log('An error occurred while retrieving token. ', err);
+      // showToken('Error retrieving Instance ID token. ', err);
+      // setTokenSentToServer(false);
+    });
+  };
+
+  const saveToken = (token: any): void =>{
+    firebase.database().ref(`tokens/pwatest`).set({
+      username: "testuser",
+      token: token,
+    });
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -18,9 +87,13 @@ const App: React.FC = () => {
         >
           Learn React
         </a>
+
+        <input type="button" onClick={requestPermission} value="許可する" />
+
       </header>
     </div>
   );
-}
+
+};
 
 export default App;
