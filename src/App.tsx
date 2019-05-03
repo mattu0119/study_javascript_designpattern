@@ -1,10 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {functionsConfig} from './config'
 
 import firebase from 'firebase/app';
 import "firebase/messaging";
 import "firebase/database";
+
+import "whatwg-fetch";
 
 const App: React.FC = () => {
 
@@ -72,6 +75,14 @@ const App: React.FC = () => {
     });
   };
 
+  const sendMessage = (): void =>{
+
+    fetch(functionsConfig.sendMessageStaticURL)
+        .then(res => res.text())
+        .then(body => console.log(body));
+
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -89,6 +100,7 @@ const App: React.FC = () => {
         </a>
 
         <input type="button" onClick={requestPermission} value="許可する" />
+        <input type="button" onClick={sendMessage} value="メッセージの送信" />
 
       </header>
     </div>
