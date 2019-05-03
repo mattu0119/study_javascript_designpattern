@@ -19,4 +19,20 @@ export const sendTestMsgNotification = functions.database.ref('/tokens/pwatest')
 
      // FCMへ通知実施
 
+        // 通知のJson.
+        const payload = {
+            notification: {
+                title: 'fcm message title!',
+                body: `fcm message body.`,
+            }
+        };
+
+        // https://firebase.google.com/docs/cloud-messaging/admin/legacy-fcm?hl=ja
+        admin.messaging().sendToDevice(token, payload)
+            .then((response: any) => {
+                console.log('Successfully sent message:', response);
+            }).catch(function(error: any) {
+            console.log('Error sending message:', error);
+        });
+
 });
