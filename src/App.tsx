@@ -17,19 +17,27 @@ const App: React.FC = () => {
   // - a message is received while the app has focus
   // - the user clicks on an app notification created by a service worker
   //   `messaging.setBackgroundMessageHandler` handler.
-  messaging.onMessage(function(payload) {
-    console.log('Message received. ', payload);
-    const notificationTitle = `focus:${payload.data.title}`;
-    const notificationOptions = {
-      body: payload.data.body,
-      // icon: '/firebase-logo.png'
-    };
-
-    return new Notification(
-        notificationTitle,
-        notificationOptions);
-
-  });
+  // messaging.onMessage(async function(payload) {
+  //   console.log('Message received. ', payload);
+  //   const notificationTitle = `focus:${payload.data.title}`;
+  //   const notificationOptions = {
+  //     body: payload.data.body,
+  //     // icon: '/firebase-logo.png'
+  //   };
+  //
+  //   console.log(notificationTitle, notificationOptions)
+  //
+  //   // await ServiceWorkerRegistration.prototype.showNotification(
+  //   //     notificationTitle,
+  //   //     notificationOptions);
+  //
+  //   return;
+  //
+  //   // return new Notification(
+  //   //     notificationTitle,
+  //   //     notificationOptions);
+  //
+  // });
 
   const requestPermission = () => {
     //プッシュ通知の許可をする処理
