@@ -3,10 +3,9 @@ import * as admin from 'firebase-admin';
 
 admin.initializeApp();
 
-const sendMessage = (token:string, payload: any) => {
+const sendMessage = (message:any) => {
 
-    // https://firebase.google.com/docs/cloud-messaging/admin/legacy-fcm?hl=ja
-    admin.messaging().sendToDevice(token, payload)
+    admin.messaging().send(message)
         .then((response: any) => {
             console.log('Successfully sent message:', response);
         }).catch(function(error: any) {
@@ -21,15 +20,21 @@ export const sendPushMessageStatic = functions.https.onRequest(async (req, res) 
 
         const token:string = snapshot.val().token;
 
-        const payload = {
-            notification: {
+        const message = {
+            token: token,
+            data: {
                 title: 'fcm message title(static)!',
                 body: `fcm message body.`,
+            },
+            webpush: {
+                fcm_options: {
+                    link: "https://www.yahoo.co.jp"
+                }
             }
         };
 
         // FCMへの通知
-        sendMessage(token,payload);
+        sendMessage(message);
 
     });
 
@@ -42,15 +47,20 @@ export const sendPushMessageAuto = functions.database.ref('/tokens/pwatest')
 
         const token: string = change.after.val().token;
 
-        // 通知のJson.
-        const payload = {
-            notification: {
-                title: 'fcm message title(auto)!',
+        const message = {
+            token: token,
+            data: {
+                title: 'fcm message title(static)!',
                 body: `fcm message body.`,
+            },
+            webpush: {
+                fcm_options: {
+                    link: "https://www.yahoo.co.jp"
+                }
             }
         };
 
         // FCMへの通知
-        sendMessage(token,payload);
+        sendMessage(message);
 
 });

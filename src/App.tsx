@@ -19,9 +19,9 @@ const App: React.FC = () => {
   //   `messaging.setBackgroundMessageHandler` handler.
   messaging.onMessage(function(payload) {
     console.log('Message received. ', payload);
-    const notificationTitle = `focus:${payload.notification.title}`;
+    const notificationTitle = `focus:${payload.data.title}`;
     const notificationOptions = {
-      body: payload.notification.body,
+      body: payload.data.body,
       // icon: '/firebase-logo.png'
     };
 

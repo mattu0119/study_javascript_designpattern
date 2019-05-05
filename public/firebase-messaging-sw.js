@@ -14,17 +14,16 @@ firebase.initializeApp({
 // messages.
 const messaging = firebase.messaging();
 
-// messaging.setBackgroundMessageHandler(function(payload) {
-//     console.log('[firebase-messaging-sw.js] Received background message ', payload);
-//     // Customize notification here
-//     var notificationTitle = `back:${payload.notification.title}`;
-//     // var notificationTitle = `test`;
-//     var notificationOptions = {
-//         body: payload.notification.body,
-//         // icon: '/firebase-logo.png'
-//     };
-//
-//     return self.registration.showNotification(
-//         notificationTitle,
-//         notificationOptions);
-// });
+messaging.setBackgroundMessageHandler(function(payload) {
+    console.log('[firebase-messaging-sw.js] Received background message ', payload);
+    // Customize notification here
+    var notificationTitle = `back:${payload.data.title}`;
+    var notificationOptions = {
+        body: payload.data.body,
+        // icon: '/firebase-logo.png'
+    };
+
+    return self.registration.showNotification(
+        notificationTitle,
+        notificationOptions);
+});
