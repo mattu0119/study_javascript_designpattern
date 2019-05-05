@@ -50,7 +50,7 @@ export const sendPushMessageAuto = functions.database.ref('/tokens/pwatest')
         const message = {
             token: token,
             data: {
-                title: 'fcm message title(static)!',
+                title: 'fcm message title(auto)!',
                 body: `fcm message body.`,
             },
             webpush: {
