@@ -12,6 +12,7 @@ firebase.initializeApp({
 
 // Retrieve an instance of Firebase Messaging so that it can handle background
 // messages.
+
 const messaging = firebase.messaging();
 
 self.addEventListener('push', function(event) {
@@ -38,7 +39,6 @@ self.addEventListener('push', function(event) {
 });
 
 
-
 // messaging.setBackgroundMessageHandler(function(payload) {
 //     console.log('[firebase-messaging-sw.js] Received background message ', payload);
 //     // Customize notification here
@@ -52,4 +52,3 @@ self.addEventListener('push', function(event) {
 //         notificationTitle,
 //         notificationOptions);
 // });
-
