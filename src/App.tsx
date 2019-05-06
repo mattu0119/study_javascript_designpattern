@@ -86,7 +86,7 @@ const App: React.FC = () => {
 
   const sendMessage = (): void =>{
 
-    fetch(functionsConfig.sendMessageStaticURL)
+    fetch(functionsConfig.sendMessageStaticURL, {mode: "no-cors"})
         .then(res => res.text())
         .then(body => console.log(body));
 
