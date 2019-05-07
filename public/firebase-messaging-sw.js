@@ -31,13 +31,24 @@ self.addEventListener('push', function(event) {
     event.waitUntil(
         self.registration.showNotification(title, {
             body: body,
+            data: {
+                url: "https://www.yahoo.co.jp"
+            }
             // icon: icon,
             // tag: tag,
             // data: data
         })
     );
+
 });
 
+self.addEventListener('notificationclick', (event) => {
+    const notification = event.notification;  // Notification インスタンスを取得
+    const url          = notification.data.url;
+
+    // 通知をクリックしたら, URL で指定されたページを新しいタブで開く
+    event.waitUntil(self.clients.openWindow(url));
+}, false);
 
 // messaging.setBackgroundMessageHandler(function(payload) {
 //     console.log('[firebase-messaging-sw.js] Received background message ', payload);
