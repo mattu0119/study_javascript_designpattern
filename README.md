@@ -1,4 +1,4 @@
-Study Very Hard by this Book
+Study Very Very Very Hard by this Book
 
 https://www.oreilly.co.jp/books/9784873116181/
 
